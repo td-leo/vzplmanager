@@ -5,190 +5,131 @@
 # Created by: PyQt5 UI code generator 5.4.1
 #
 # WARNING! All changes made in this file will be lost!
-from datetime import datetime
 
-import mysql
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QIcon
 
-
-from com.org.window.acount import Ui_AccountForm
-from com.org.window.helpcenter.contact import Ui_ContactForm
-from com.org.window.helpcenter.version import Ui_VersionForm
-
-from com.org.window.log import Ui_LogForm
-from com.org.window.query import Ui_QueryForm
-from com.org.window.rules import Ui_RulesForm
-from com.org.window.settings import Ui_SetingsForm
+from com.org.window.plmanagertab import Ui_PlManagerForm
+from com.org.window.plrecord import Ui_PlRecordForm
+from com.org.window.plsystem import Ui_SystemForm
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(960, 540)
+        MainWindow.resize(964, 540)
+        MainWindow.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
+        MainWindow.setDocumentMode(False)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.treeWidget = QtWidgets.QTreeWidget(self.centralwidget)
-        self.treeWidget.setGeometry(QtCore.QRect(10, 40, 151, 451))
-        self.treeWidget.setObjectName("treeWidget")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(180, 40, 731, 451))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 90, 931, 401))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.mainlayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.mainlayout.setContentsMargins(0, 0, 0, 0)
         self.mainlayout.setObjectName("mainlayout")
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 960, 23))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        self.actionpl = QtWidgets.QAction(QIcon('img/plmanger.png'), "接警管理", MainWindow)
+        self.actionpl.setObjectName("plmanager")
+
+        self.actionrecord = QtWidgets.QAction(QIcon('img/plrecord.png'), "接警记录", MainWindow)
+        self.actionrecord.setObjectName("plrecord")
+
+        self.actioncase = QtWidgets.QAction(QIcon('img/plcase.png'), "数字预案", MainWindow)
+        self.actioncase.setObjectName("plcase")
+
+        self.actionpractice = QtWidgets.QAction(QIcon('img/plpractice.png'), "应急演练", MainWindow)
+        self.actionpractice.setObjectName("plpractice")
+
+        self.actionquery = QtWidgets.QAction(QIcon('img/plquery.png'), "录音查询", MainWindow)
+        self.actionquery.setObjectName("plquery")
+
+        self.actionsystem = QtWidgets.QAction(QIcon('img/plsettings.png'), "系统管理", MainWindow)
+        self.actionsystem.setObjectName("plsettings")
+
+        self.toolBar = QtWidgets.QToolBar(MainWindow)
+        self.toolBar.addAction(self.actionpl)
+        self.toolBar.addAction(self.actionrecord)
+        self.toolBar.addAction(self.actioncase)
+        self.toolBar.addAction(self.actionpractice)
+        self.toolBar.addAction(self.actionquery)
+        self.toolBar.addAction(self.actionsystem)
+
+        self.actionpl.triggered.connect(self.showPl)
+        self.actionrecord.triggered.connect(self.showRecord)
+        self.actioncase.triggered.connect(self.showCase)
+        self.actionpractice.triggered.connect(self.showPractice)
+        self.actionquery.triggered.connect(self.showQuery)
+        self.actionsystem.triggered.connect(self.showSystem)
+
+        self.toolBar.setMovable(False)
+        self.toolBar.setObjectName("toolBar")
+        MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
         self.retranslateUi(MainWindow)
-        self.treeWidget.itemClicked['QTreeWidgetItem*','int'].connect(self.onItemChange)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.account = AccountForm()
-        self.settings = SettingsForm()
-        self.tab =
-        self.log = LogForm()
-        self.query = QueryForm()
-        self.contact = ContactForm()
-        self.version = VersionForm()
+        self.plmanager = PlManagerForm()
+        self.plrecord = PlRecordForm()
+        self.plsystem = PlSystemForm()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.treeWidget.headerItem().setText(0, _translate("MainWindow", "云系统"))
-        __sortingEnabled = self.treeWidget.isSortingEnabled()
-        self.treeWidget.setSortingEnabled(False)
-        self.treeWidget.setColumnCount(1)
-        for i in range(1):
-            child = QtWidgets.QTreeWidgetItem(self.treeWidget)
-            info = QtWidgets.QTreeWidgetItem(child)
-            child.setText(0, _translate("MainWindow", "admin"))
-            info.setText(0, _translate("MainWindow", "110032"))
-            info.setText(1, _translate("MainWindow", "201"))
-        self.treeWidget.setSortingEnabled(__sortingEnabled)
 
-    def showAccount(self):
-        self.clearWidget()
-        self.mainlayout.addWidget(self.account)
-        self.account.show()
 
-    def showSettings(self):
-        self.clearWidget()
-        self.mainlayout.addWidget(self.settings)
-        self.settings.show()
+    def clearWidget(self):
+        self.mainlayout.removeWidget(self.plmanager)
+        self.plmanager.hide()
+        self.mainlayout.removeWidget(self.plrecord)
+        self.plrecord.hide()
 
-    def showTab(self):
-        self.clearWidget()
-        self.mainlayout.addWidget(self.)
-    def showLog(self):
-        self.clearWidget()
-        self.mainlayout.addWidget(self.log)
-        self.log.show()
+        self.mainlayout.removeWidget(self.plsystem)
+        self.plsystem.hide()
 
-    def showContact(self):
-        self.clearWidget()
-        self.mainlayout.addWidget(self.contact)
-        self.contact.show()
+        pass
 
-    def showVersion(self):
+    def showPl(self):
         self.clearWidget()
-        self.mainlayout.addWidget(self.version)
-        self.version.show()
+        self.mainlayout.addWidget(self.plmanager)
+        self.plmanager.show()
 
-    def showRules(self):
+    def showRecord(self):
+        self.clearWidget()
+        self.mainlayout.addWidget(self.plrecord)
+        self.plrecord.show()
+
+    def showCase(self):
+        pass
+
+    def showPractice(self):
         pass
 
     def showQuery(self):
+        pass
+
+    def showSystem(self):
         self.clearWidget()
-        self.mainlayout.addWidget(self.query)
-        self.query.show()
+        self.mainlayout.addWidget(self.plsystem)
+        self.plsystem.show()
 
-    def clearWidget(self):
-        self.mainlayout.removeWidget(self.account)
-        self.mainlayout.removeWidget(self.settings)
-        self.mainlayout.removeWidget(self.log)
-        self.mainlayout.removeWidget(self.query)
-        self.mainlayout.removeWidget(self.contact)
-        self.mainlayout.removeWidget(self.version)
-        self.account.hide()
-        self.settings.hide()
-        self.log.hide()
-        self.query.hide()
-        self.version.hide()
-        self.contact.hide()
-
-    def onItemChange(self, item, text):
-        self.clearWidget()
-
-        if item.text(0) == "admin":
-            self.showSettings()
-        elif item.text(0) == "日志":
-            self.showLog()
-        elif item.text(0) == "查询/恢复":
-            self.showQuery()
-        elif item.text(0) == "联系我们":
-            self.showContact()
-        elif item.text(0) == "软件版本":
-            self.showVersion()
-        elif item.text(0) == "信息":
-            self.showAccount()
-
-class AccountForm(QtWidgets.QWidget, Ui_AccountForm):
+class PlRecordForm(QtWidgets.QWidget, Ui_PlRecordForm):
     def __init__(self):
-        super(AccountForm, self).__init__()
-        self.setupUi(self)
-        self.initData()
-
-    def initData(self):
-        cnx = mysql.connector.connect(user='root', password='qwer1234',
-                              host='127.0.0.1', database='cloud')
-        cursor = cnx.cursor()
-        query = ("select account, email, last_login, author from account")
-        cursor.execute(query)
-        for (account, email, last_login, author) in cursor:
-            self.textEdit.setText(account)
-            self.textEdit_2.setText(email)
-            self.textEdit_3.setText(datetime.strftime(last_login, '%Y-%m-%d %H:%M:%S'))
-            self.textEdit_4.setText(author)
-
-        cursor.close()
-        cnx.close()
-
-class SettingsForm(QtWidgets.QWidget, Ui_SetingsForm):
-    def __init__(self):
-        super(SettingsForm, self).__init__()
+        super(PlRecordForm, self).__init__()
         self.setupUi(self)
 
-class SettingsForm(QtWidgets.QWidget, Ui_SetingsForm):
+class PlManagerForm(QtWidgets.QWidget, Ui_PlManagerForm):
     def __init__(self):
-        super(SettingsForm, self).__init__()
+        super(PlManagerForm, self).__init__()
         self.setupUi(self)
 
-class LogForm(QtWidgets.QWidget, Ui_LogForm):
+class PlSystemForm(QtWidgets.QWidget, Ui_SystemForm):
     def __init__(self):
-        super(LogForm, self).__init__()
+        super(PlSystemForm, self).__init__()
         self.setupUi(self)
-
-class QueryForm(QtWidgets.QWidget, Ui_QueryForm):
-    def __init__(self):
-        super(QueryForm, self).__init__()
-        self.setupUi(self)
-
-class VersionForm(QtWidgets.QWidget, Ui_VersionForm):
-    def __init__(self):
-        super(VersionForm, self).__init__()
-        self.setupUi(self)
-
-class ContactForm(QtWidgets.QWidget, Ui_ContactForm):
-    def __init__(self):
-        super(ContactForm, self).__init__()
-        self.setupUi(self)
-
 
 if __name__=='__main__':
     import sys
