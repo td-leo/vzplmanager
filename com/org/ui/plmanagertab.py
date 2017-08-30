@@ -8,7 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Ui_PlManagerForm(object):
+class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(739, 455)
@@ -74,7 +74,7 @@ class Ui_PlManagerForm(object):
         self.tabWidget.addTab(self.tab_4, "")
 
         self.retranslateUi(Form)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -105,19 +105,3 @@ class Ui_PlManagerForm(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("Form", "跟踪指挥"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("Form", "处理结果"))
 
-        self.initTree()
-
-    def initTree(self):
-        child = QtWidgets.QTreeWidgetItem(self.treeWidget)
-        child.setText(0, "处理人员逃跑事件")
-
-        info = QtWidgets.QTreeWidgetItem(child)
-        info.setText(0, "一级")
-
-        child1 = QtWidgets.QTreeWidgetItem(self.treeWidget)
-        child1.setText(0, "处理人员械斗,群殴事件")
-        info1 = QtWidgets.QTreeWidgetItem(child1)
-        info1.setText(0, "一级")
-
-        child2 = QtWidgets.QTreeWidgetItem(self.treeWidget)
-        child2.setText(0, "处理人员所内乱事件")

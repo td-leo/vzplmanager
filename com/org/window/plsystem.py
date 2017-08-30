@@ -36,7 +36,6 @@ class Ui_SystemForm(object):
         self.tableWidget.setGeometry(QtCore.QRect(10, 80, 701, 391))
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(5)
-        self.tableWidget.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
@@ -177,3 +176,28 @@ class Ui_SystemForm(object):
         self.pushButton_20.setText(_translate("SystemForm", "删除"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("SystemForm", "部门管理"))
 
+        self.initSlot()
+
+    def initSlot(self):
+        self.pushButton_19.clicked.connect(self.queryPart)
+        self.pushButton_6.clicked.connect(self.queryUser)
+        self.pushButton.clicked.connect(self.queryPermission)
+
+    def queryPermission(self):
+        permissions = [["001", "确认", "9999","超级管理员", ""]]
+        self.tableWidget.setRowCount(10)
+        for per in range(len(permissions)):
+            for i in range(len(permissions[per])):
+                self.tableWidget.setItem(per, i, QtWidgets.QTableWidgetItem(permissions[per][i]))
+
+    def queryUser(self):
+        users = [["确认", "test", "2017-08-29 14:20:13", "test", "xxx", "P"],
+                 ["确认", "admin", "2015-08-09 10:13:43", "超级管理员", "xxx", "P"]]
+        self.tableWidget_2.setRowCount(10)
+        for user in range(len(users)):
+            for i in range(len(users[user])):
+                self.tableWidget_2.setItem(user, i, QtWidgets.QTableWidgetItem(users[user][i]))
+
+
+    def queryPart(self):
+        pass
