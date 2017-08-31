@@ -17,7 +17,7 @@ class Ui_PlRecordForm(object):
         self.tableWidget.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(3)
-        self.tableWidget.setRowCount(10)
+        self.tableWidget.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
@@ -73,15 +73,4 @@ class Ui_PlRecordForm(object):
         self.label.setText(_translate("PlRecordForm", "自动接警："))
         self.label_2.setText(_translate("PlRecordForm", "接受已失效报警:"))
         self.label_4.setText(_translate("PlRecordForm", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:600;\">报警信息</span></p></body></html>"))
-        self.tableWidget.setColumnWidth(1, 700)
-        self.initTab()
 
-    def initTab(self):
-        tab3 = [["8-13 12:12", "当接到xx逃跑后，当日值班大队领导立即向指挥长，副指挥报告", "xxx派出所"],
-                ["8-13 12:14", "现场组织人员沿逃跑线路追寻，其他人员分为两队火速赶往火车站，汽车站，高速公路收费站站点堵截", "xxx派出所"],
-                ["8-13 14:52", "现场警戒组维持好现场顺序，了解逃跑人员情况，做好其他人思想教育工作，随时做好现场支持准备",  "xxx派出所"]]
-
-        for i in range(len(tab3)):
-            self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(tab3[i][0]))
-            self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(tab3[i][1]))
-            self.tableWidget.setItem(i, 2, QtWidgets.QTableWidgetItem(tab3[i][2]))

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>742</width>
-    <height>455</height>
+    <width>925</width>
+    <height>478</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,14 +16,14 @@
   <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>741</width>
-     <height>451</height>
+     <x>19</x>
+     <y>10</y>
+     <width>959</width>
+     <height>461</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -38,6 +38,41 @@
        <height>341</height>
       </rect>
      </property>
+     <column>
+      <property name="text">
+       <string>事件类型</string>
+      </property>
+     </column>
+     <item>
+      <property name="text">
+       <string>处理人员逃跑事件</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>一级</string>
+       </property>
+      </item>
+     </item>
+     <item>
+      <property name="text">
+       <string>处理人员械斗,群殴事件</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>一级</string>
+       </property>
+      </item>
+     </item>
+     <item>
+      <property name="text">
+       <string>处理人员所内乱事件</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>一级</string>
+       </property>
+      </item>
+     </item>
     </widget>
     <widget class="QGraphicsView" name="graphicsView">
      <property name="geometry">
@@ -88,6 +123,19 @@
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>370</y>
+       <width>51</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>启动</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">
@@ -96,10 +144,10 @@
     <widget class="QTableWidget" name="tableWidget">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>511</width>
-       <height>381</height>
+       <x>0</x>
+       <y>0</y>
+       <width>901</width>
+       <height>421</height>
       </rect>
      </property>
      <column>
@@ -133,8 +181,8 @@
       <rect>
        <x>0</x>
        <y>10</y>
-       <width>691</width>
-       <height>391</height>
+       <width>901</width>
+       <height>421</height>
       </rect>
      </property>
      <column>
