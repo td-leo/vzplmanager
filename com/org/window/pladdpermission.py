@@ -1,11 +1,13 @@
+# -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'D:\workspace\vzplmanager\com\org\ui\pladdpermission.ui'
 #
 # Created by: PyQt5 UI code generator 5.4.1
 #
 # WARNING! All changes made in this file will be lost!
-
+import mysql
 from PyQt5 import QtCore, QtGui, QtWidgets
+import random
 
 class Ui_AddPermissionMainWindow(object):
     def setupUi(self, AddPermissionMainWindow):
@@ -43,10 +45,18 @@ class Ui_AddPermissionMainWindow(object):
         self.checkBox_13 = QtWidgets.QCheckBox(self.centralwidget)
         self.checkBox_13.setGeometry(QtCore.QRect(170, 60, 71, 16))
         self.checkBox_13.setObjectName("checkBox_13")
-        self.buttonBox = QtWidgets.QDialogButtonBox(self.centralwidget)
-        self.buttonBox.setGeometry(QtCore.QRect(130, 330, 156, 23))
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName("buttonBox")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(70, 330, 75, 23))
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_2.setGeometry(QtCore.QRect(160, 330, 75, 23))
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(50, 280, 54, 12))
+        self.label.setObjectName("label")
+        self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit.setGeometry(QtCore.QRect(110, 270, 121, 31))
+        self.textEdit.setObjectName("textEdit")
         AddPermissionMainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(AddPermissionMainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -68,4 +78,28 @@ class Ui_AddPermissionMainWindow(object):
         self.checkBox_11.setText(_translate("AddPermissionMainWindow", "参数设置"))
         self.checkBox_12.setText(_translate("AddPermissionMainWindow", "实时监控"))
         self.checkBox_13.setText(_translate("AddPermissionMainWindow", "地图定位"))
+        self.pushButton.setText(_translate("AddPermissionMainWindow", "确定"))
+        self.pushButton_2.setText(_translate("AddPermissionMainWindow", "取消"))
+        self.label.setText(_translate("AddPermissionMainWindow", "用户："))
 
+
+    def initslot(self):
+        self.pushButton.clicked.connect(self.commit)
+
+    def commit(self):
+        user = self.textEdit.toPlainText()
+        permisison = random.choice( ["7172","9090","5421"])
+        cnx = mysql.connector.connect(user='root', password='qwer1234',
+                              host='127.0.0.1', database='vzplmanager')
+        self.cursor = cnx.cursor()
+
+        insert = ("INSERT INTO permission "
+                        "(value, account)"
+                        "VALUES ( %s, %s)")
+        vl = (permisison, user)
+        self.cursor.execute(insert, vl)
+
+        cnx.commit()
+        self.cursor.close()
+        cnx.close()
+        pass

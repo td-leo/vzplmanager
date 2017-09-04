@@ -5,7 +5,7 @@
 # Created by: PyQt5 UI code generator 5.4.1
 #
 # WARNING! All changes made in this file will be lost!
-
+import mysql
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from com.org.window.pladdpermission import Ui_AddPermissionMainWindow
@@ -57,7 +57,7 @@ class Ui_SystemForm(object):
         self.tableWidget_2.setGeometry(QtCore.QRect(10, 80, 931, 361))
         self.tableWidget_2.setObjectName("tableWidget_2")
         self.tableWidget_2.setColumnCount(6)
-        self.tableWidget_2.setRowCount(0)
+        self.tableWidget_2.setRowCount(10)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_2.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
@@ -151,7 +151,7 @@ class Ui_SystemForm(object):
         item = self.tableWidget_2.horizontalHeaderItem(1)
         item.setText(_translate("SystemForm", "账号"))
         item = self.tableWidget_2.horizontalHeaderItem(2)
-        item.setText(_translate("SystemForm", "修改名称"))
+        item.setText(_translate("SystemForm", "修改时间"))
         item = self.tableWidget_2.horizontalHeaderItem(3)
         item.setText(_translate("SystemForm", "用户名称"))
         item = self.tableWidget_2.horizontalHeaderItem(4)
@@ -201,19 +201,45 @@ class Ui_SystemForm(object):
 
 
     def queryPermission(self):
-        permissions = [["001", "确认", "9999","超级管理员", ""]]
         self.tableWidget.setRowCount(10)
-        for per in range(len(permissions)):
-            for i in range(len(permissions[per])):
-                self.tableWidget.setItem(per, i, QtWidgets.QTableWidgetItem(permissions[per][i]))
+        cnx = mysql.connector.connect(user='root', password='qwer1234',
+                              host='127.0.0.1', database='vzplmanager')
+        self.cursor = cnx.cursor()
+        query = ("select id, value, account from permission")
+        self.cursor.execute(query)
+
+        self.num = 0
+        for (id, value, account) in self.cursor:
+            self.tableWidget.setItem(self.num, 0, QtWidgets.QTableWidgetItem(str(id)))
+            self.tableWidget.setItem(self.num, 1, QtWidgets.QTableWidgetItem(value))
+            self.tableWidget.setItem(self.num, 2, QtWidgets.QTableWidgetItem(account))
+            self.num += 1
+
+        cnx.commit()
+        self.cursor.close()
+        cnx.close()
 
     def queryUser(self):
-        users = [["确认", "test", "2017-08-29 14:20:13", "test", "xxx", "P"],
-                 ["确认", "admin", "2015-08-09 10:13:43", "超级管理员", "xxx", "P"]]
-        self.tableWidget_2.setRowCount(10)
-        for user in range(len(users)):
-            for i in range(len(users[user])):
-                self.tableWidget_2.setItem(user, i, QtWidgets.QTableWidgetItem(users[user][i]))
+        self.tableWidget.setRowCount(10)
+        cnx = mysql.connector.connect(user='root', password='qwer1234',
+                              host='127.0.0.1', database='vzplmanager')
+        self.cursor = cnx.cursor()
+        query = ("select username, account, partment, create_time from user")
+        self.cursor.execute(query)
+
+        self.num = 0
+        for (username, account, partment, create_time) in self.cursor:
+            print (username)
+            self.tableWidget_2.setItem(self.num, 1, QtWidgets.QTableWidgetItem(account))
+            self.tableWidget_2.setItem(self.num, 2, QtWidgets.QTableWidgetItem(str(create_time)))
+            self.tableWidget_2.setItem(self.num, 3, QtWidgets.QTableWidgetItem(username))
+            self.tableWidget_2.setItem(self.num, 4, QtWidgets.QTableWidgetItem(partment))
+
+            self.num += 1
+
+        cnx.commit()
+        self.cursor.close()
+        cnx.close()
 
 
     def queryPart(self):

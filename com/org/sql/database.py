@@ -5,43 +5,35 @@ from mysql.connector import errorcode
 
 
 class Init_Data():
-    DB_NAME = 'cloud'
+    DB_NAME = 'vzplmanager'
     TABLES = {}
-    TABLES['client'] = (
-        "CREATE TABLE `client` ("
-        "  `client_no` int(11) NOT NULL AUTO_INCREMENT,"
-        "  `client_name` varchar(128) NOT NULL,"
-        "  `authonize` varchar(128) NOT NULL,"
-        "  `package` varchar(128) NOT NULL,"
-        "  `clouddir` varchar(128) NOT NULL,"
-        "  `clientfiles` varchar(256) NOT NULL,"
-        "  `backupname` varchar(256) NOT NULL,"
-        "  `ipaddress` varchar(128) NOT NULL,"
-        "  PRIMARY KEY (`client_no`)"
+    TABLES['record'] = (
+        "CREATE TABLE `record` ("
+        "  `id` int(11) NOT NULL AUTO_INCREMENT,"
+        "  `body` varchar(128) NOT NULL,"
+        "  `partment` varchar(128) NOT NULL,"
+        "  `eventtype` varchar(128) NOT NULL,"
+        "  `step` varchar(128),"
+        "  `create_time` datetime NOT NULL,"
+        "  PRIMARY KEY (`id`)"
         ") ENGINE=InnoDB")
 
-    TABLES['log'] = (
-        "CREATE TABLE `log` ("
-        "  `log_no` int(11) NOT NULL AUTO_INCREMENT,"
-        "  `client_name` varchar(128) NOT NULL,"
-        "  `restore_type` varchar(128) NOT NULL,"
-        "  `operation` varchar(128) NOT NULL,"
-        "  `client_files` varchar(256) NOT NULL,"
-        "  `clouddir` varchar(256) NOT NULL,"
-        "  `ipaddress` varchar(128) NOT NULL,"
-        "  `restore_date` datetime NOT NULL,"
-        "  PRIMARY KEY (`log_no`)"
+    TABLES['permission'] = (
+        "CREATE TABLE `permission` ("
+        "  `id` int(11) NOT NULL AUTO_INCREMENT,"
+        "  `account` varchar(128) NOT NULL,"
+        "  `value` varchar(128) NOT NULL,"
+        "  PRIMARY KEY (`id`)"
         ") ENGINE=InnoDB")
 
-    TABLES['backup_record'] = (
-        "CREATE TABLE `backup_record` ("
-        "  `record_no` int(11) NOT NULL AUTO_INCREMENT,"
-        "  `client_name` varchar(128) NOT NULL,"
-        "  `backup_name` varchar(128) NOT NULL,"
-        "  `client_files` varchar(256) NOT NULL,"
-        "  `clouddir` varchar(256) NOT NULL,"
-        "  `ipaddress` varchar(128) NOT NULL,"
-        "  PRIMARY KEY (`record_no`)"
+    TABLES['user'] = (
+        "CREATE TABLE `user` ("
+        "  `id` int(11) NOT NULL AUTO_INCREMENT,"
+        "  `username` varchar(128) NOT NULL,"
+        "  `account` varchar(128) NOT NULL,"
+        "  `partment` varchar(256) NOT NULL,"
+        "  `create_time` datetime NOT NULL,"
+        "  PRIMARY KEY (`id`)"
         ") ENGINE=InnoDB")
 
     TABLES['account'] = (

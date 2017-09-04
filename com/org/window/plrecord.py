@@ -5,7 +5,7 @@
 # Created by: PyQt5 UI code generator 5.4.1
 #
 # WARNING! All changes made in this file will be lost!
-
+import mysql
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_PlRecordForm(object):
@@ -73,15 +73,24 @@ class Ui_PlRecordForm(object):
         self.label.setText(_translate("PlRecordForm", "自动接警："))
         self.label_2.setText(_translate("PlRecordForm", "接受已失效报警:"))
         self.label_4.setText(_translate("PlRecordForm", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:600;\">报警信息</span></p></body></html>"))
-        self.tableWidget.setColumnWidth(1, 700)
+        self.tableWidget.setColumnWidth(0, 150)
+        self.tableWidget.setColumnWidth(1, 550)
         self.initTab()
 
     def initTab(self):
-        tab3 = [["8-13 12:12", "当接到xx逃跑后，当日值班大队领导立即向指挥长，副指挥报告", "xxx派出所"],
-                ["8-13 12:14", "现场组织人员沿逃跑线路追寻，其他人员分为两队火速赶往火车站，汽车站，高速公路收费站站点堵截", "xxx派出所"],
-                ["8-13 14:52", "现场警戒组维持好现场顺序，了解逃跑人员情况，做好其他人思想教育工作，随时做好现场支持准备",  "xxx派出所"]]
+        cnx = mysql.connector.connect(user='root', password='qwer1234',
+                              host='127.0.0.1', database='vzplmanager')
+        self.cursor = cnx.cursor()
+        query = ("select create_time, body, partment from record where id in (select min(id) from record group by body)")
+        self.cursor.execute(query)
 
-        for i in range(len(tab3)):
-            self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(tab3[i][0]))
-            self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(tab3[i][1]))
-            self.tableWidget.setItem(i, 2, QtWidgets.QTableWidgetItem(tab3[i][2]))
+        self.num = 0
+        for (create_time, body, partment) in self.cursor:
+            self.tableWidget.setItem(self.num, 1, QtWidgets.QTableWidgetItem(body))
+            self.tableWidget.setItem(self.num, 0, QtWidgets.QTableWidgetItem(str(create_time)))
+            self.tableWidget.setItem(self.num, 2, QtWidgets.QTableWidgetItem(partment))
+            self.num += 1
+
+        cnx.commit()
+        self.cursor.close()
+        cnx.close()

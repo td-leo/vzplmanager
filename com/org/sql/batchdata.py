@@ -4,68 +4,59 @@ from datetime import date, datetime
 from com.org.sql.database import Init_Data
 
 class Batch_Data():
-    def insertClient(self, cursor):
-        add_client = ("INSERT INTO client "
-                        "(client_name, authonize, package, clouddir, clientfiles, backupname, ipaddress) "
-                        "VALUES ( %s, %s, %s, %s, %s, %s, %s)")
+    def insertRecord(self, cursor):
+        add_client = ("INSERT INTO record "
+                        "(body, partment, eventtype, step,create_time) "
+                        "VALUES ( %s, %s, %s, %s, %s)")
 
-        data_client1 = ('149', 'CB894JH903J0890IU', '基础客户端套餐', 'cloud/34908765/', '', '','192.168.12.149')
-        data_client2 = ('129', 'DB764JH9065490I3U', '基础客户端套餐', 'cloud/98750876/', '', '','192.168.12.129')
-        data_client3 = ('111', 'H906DB7640I3J549U', '基础客户端套餐', 'cloud/08987576/', '', '','192.168.12.111')
-        data_client4 = ('89', 'ASD898H9065490I3U', '基础客户端套餐', 'cloud/87698750/', '', '','192.168.62.89')
-        data_client5 = ('80', '549064J6I3UASD898', '基础客户端套餐', 'cloud/50876987/', '', '','192.168.12.80')
+        data_client1 = ('xx逃跑事件', 'A区B分部派出所', '处理人员逃跑事件',
+                        '当接到xx逃跑后，当日值班大队领导立即向指挥长，副指挥报告',
+                        datetime(2016, 3, 18,1,2,34))
+        data_client2 = ('xx逃跑事件', 'A区B分部派出所', '处理人员逃跑事件',
+                        '现场组织人员沿逃跑线路追寻，其他人员分为两队火速赶往火车站，汽车站，高速公路收费站站点堵截',
+                        datetime(2016, 3, 18,1,2,44))
+        data_client3 = ('xx逃跑事件', 'A区B分部派出所', '处理人员逃跑事件',
+                        '现场警戒组维持好现场顺序，了解逃跑人员情况，做好其他人思想教育工作，随时做好现场支持准备',
+                        datetime(2016, 3, 18,1,2,54))
+
 
         cursor.execute(add_client, data_client1)
         cursor.execute(add_client, data_client2)
         cursor.execute(add_client, data_client3)
-        cursor.execute(add_client, data_client4)
-        cursor.execute(add_client, data_client5)
 
-    def insertLog(self, cursor):
-        add_log = ("INSERT INTO log "
-                        "(client_name, restore_type, client_files, operation,ipaddress, clouddir, restore_date) "
-                        "VALUES (%s, %s, %s, %s, %s, %s, %s)")
-
-        data_log = ('149', '即时恢复', 'C:/data/', 'backup', '192.168.12.149', 'cloud/34908765/', datetime(2016, 8, 18,12,34,11))
-        data_log2 = ('149', 'CDP恢复', 'C:/files/readme.txt->C:/files/add.text', 'rename', '192.168.12.149','cloud/34908765/', datetime(2017, 1, 7,19,56,23))
-
-        data_log4 = ('129', '即时恢复', 'C:/1290/', 'setarr', '192.168.12.129','cloud/98750876/', datetime(2016, 3, 18,1,2,34))
-        data_log3 = ( '80', 'CDP恢复', 'C:/profiles/', 'backup', '192.168.12.80', 'cloud/50876987/', datetime(2016, 12, 7,3,15,19))
-
-        cursor.execute(add_log, data_log)
-        cursor.execute(add_log, data_log2)
-        cursor.execute(add_log, data_log3)
-        cursor.execute(add_log, data_log4)
 
     def insertUser(self, cursor):
-        add_user = ("INSERT INTO account "
-                        "(account, email, password, last_login, author) "
-                        "VALUES (%s, %s, %s, %s, %s)")
+        add_user = ("INSERT INTO user "
+                        "(username, account,partment,create_time) "
+                        "VALUES (%s, %s, %s, %s)")
 
-        data_user = ('kaidylee', 'lidekai', 'kaidylee@vanzo.com', datetime(2017,3, 21, 12, 56, 28),  'gKwX1uNqzgHjXibOam0Hk/x096GeB36Sz')
+        data_user1 = ('test1', '超級管理員', '偵查科', datetime(2017,3, 21, 12, 56, 28))
+        data_user2= ('test2', '管理員', '資料室', datetime(2017, 3, 21, 12, 56, 28))
+        data_user3 = ('test3', '管理员', '后勤处', datetime(2017, 3, 21, 12, 56, 28))
+        cursor.execute(add_user, data_user1)
+        cursor.execute(add_user, data_user2)
+        cursor.execute(add_user, data_user3)
+
+    def insertpermission(self, cursor):
+        add_user = ("INSERT INTO permission "
+                        "(account, value) "
+                        "VALUES (%s, %s)")
+
+        data_user = ('超級管理員', '9999')
+        data_user1 = ('管理員', '9000')
+
         cursor.execute(add_user, data_user)
-
-
-    def insertBackupRecord(self0, cursor):
-        add_backup = ("INSERT INTO backup_record "
-                        "(client_name, backup_name, client_files, clouddir,ipaddress) "
-                        "VALUES (%s, %s, %s, %s, %s)")
-        data_backup1 = ('149', 'data23', 'C:/data/;D:/files/', 'cloud/34908765/', '192.168.12.149')
-        data_backup2 = ('129', 'backup1', 'C:/1290/', 'cloud/98750876/', '192.168.12.129')
-        data_backup3 = ('129', 'backup2', 'C:/1790/', 'cloud/98750876/', '192.168.12.129')
-        cursor.execute(add_backup, data_backup1)
-        cursor.execute(add_backup, data_backup2)
-        cursor.execute(add_backup, data_backup3)
+        cursor.execute(add_user, data_user1)
 
     def init(self):
         cnx = mysql.connector.connect(user='root', password='qwer1234',
-                              host='127.0.0.1', database='cloud')
+                              host='127.0.0.1', database='vzplmanager')
         cursor = cnx.cursor()
 
-        self.insertClient(cursor)
-        self.insertLog(cursor)
+        self.insertRecord(cursor)
         self.insertUser(cursor)
-        self.insertBackupRecord(cursor)
+        self.insertpermission(cursor)
+
 
         cnx.commit()
         cursor.close()
