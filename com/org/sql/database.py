@@ -36,6 +36,15 @@ class Init_Data():
         "  PRIMARY KEY (`id`)"
         ") ENGINE=InnoDB")
 
+    TABLES['part'] = (
+        "CREATE TABLE `part` ("
+        "  `id` int(11) NOT NULL AUTO_INCREMENT,"
+        "  `partment` varchar(128) NOT NULL,"
+        "  `count` varchar(128) NOT NULL,"
+        "  `extra_count` varchar(128) NOT NULL,"
+        "  PRIMARY KEY (`id`)"
+        ") ENGINE=InnoDB")
+
     TABLES['account'] = (
         "CREATE TABLE `account` ("
         "  `_id` int(11) NOT NULL AUTO_INCREMENT,"

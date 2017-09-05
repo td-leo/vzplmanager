@@ -7,9 +7,14 @@
 # WARNING! All changes made in this file will be lost!
 import mysql
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
 
+from com.org.window.pladdpart import Ui_AddPartMainWindow
 from com.org.window.pladdpermission import Ui_AddPermissionMainWindow
 from com.org.window.pladduser import Ui_AddUserMainWindow
+from com.org.window.plmodifypart import Ui_ModifyPartMainWindow
+from com.org.window.plmodifypermission import Ui_ModifyPermissionMainWindow
+from com.org.window.plmodifyuser import Ui_ModiyfUserMainWindow
 
 
 class Ui_SystemForm(object):
@@ -39,7 +44,8 @@ class Ui_SystemForm(object):
         self.tableWidget = QtWidgets.QTableWidget(self.tab)
         self.tableWidget.setGeometry(QtCore.QRect(10, 80, 931, 391))
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(5)
+        self.tableWidget.setColumnCount(4)
+        self.tableWidget.setRowCount(10)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
@@ -48,15 +54,13 @@ class Ui_SystemForm(object):
         self.tableWidget.setHorizontalHeaderItem(2, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(3, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(4, item)
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
         self.tableWidget_2 = QtWidgets.QTableWidget(self.tab_2)
         self.tableWidget_2.setGeometry(QtCore.QRect(10, 80, 931, 361))
         self.tableWidget_2.setObjectName("tableWidget_2")
-        self.tableWidget_2.setColumnCount(6)
+        self.tableWidget_2.setColumnCount(5)
         self.tableWidget_2.setRowCount(10)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_2.setHorizontalHeaderItem(0, item)
@@ -68,8 +72,6 @@ class Ui_SystemForm(object):
         self.tableWidget_2.setHorizontalHeaderItem(3, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_2.setHorizontalHeaderItem(4, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget_2.setHorizontalHeaderItem(5, item)
         self.label_2 = QtWidgets.QLabel(self.tab_2)
         self.label_2.setGeometry(QtCore.QRect(10, 50, 81, 16))
         self.label_2.setObjectName("label_2")
@@ -102,7 +104,7 @@ class Ui_SystemForm(object):
         self.tableWidget_5.setGeometry(QtCore.QRect(10, 100, 931, 361))
         self.tableWidget_5.setObjectName("tableWidget_5")
         self.tableWidget_5.setColumnCount(4)
-        self.tableWidget_5.setRowCount(0)
+        self.tableWidget_5.setRowCount(10)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_5.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
@@ -124,7 +126,7 @@ class Ui_SystemForm(object):
         self.tabWidget.addTab(self.tab_3, "")
 
         self.retranslateUi(SystemForm)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(SystemForm)
 
     def retranslateUi(self, SystemForm):
@@ -138,25 +140,21 @@ class Ui_SystemForm(object):
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("SystemForm", "席号"))
         item = self.tableWidget.horizontalHeaderItem(1)
-        item.setText(_translate("SystemForm", "状态"))
-        item = self.tableWidget.horizontalHeaderItem(2)
         item.setText(_translate("SystemForm", "权限编号"))
-        item = self.tableWidget.horizontalHeaderItem(3)
+        item = self.tableWidget.horizontalHeaderItem(2)
         item.setText(_translate("SystemForm", "权限名称"))
-        item = self.tableWidget.horizontalHeaderItem(4)
+        item = self.tableWidget.horizontalHeaderItem(3)
         item.setText(_translate("SystemForm", "备注"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("SystemForm", "权限管理"))
         item = self.tableWidget_2.horizontalHeaderItem(0)
-        item.setText(_translate("SystemForm", "状态"))
-        item = self.tableWidget_2.horizontalHeaderItem(1)
         item.setText(_translate("SystemForm", "账号"))
-        item = self.tableWidget_2.horizontalHeaderItem(2)
+        item = self.tableWidget_2.horizontalHeaderItem(1)
         item.setText(_translate("SystemForm", "修改时间"))
-        item = self.tableWidget_2.horizontalHeaderItem(3)
+        item = self.tableWidget_2.horizontalHeaderItem(2)
         item.setText(_translate("SystemForm", "用户名称"))
-        item = self.tableWidget_2.horizontalHeaderItem(4)
+        item = self.tableWidget_2.horizontalHeaderItem(3)
         item.setText(_translate("SystemForm", "部门"))
-        item = self.tableWidget_2.horizontalHeaderItem(5)
+        item = self.tableWidget_2.horizontalHeaderItem(4)
         item.setText(_translate("SystemForm", "备注"))
         self.label_2.setText(_translate("SystemForm", "【查询结果】"))
         self.pushButton_5.setText(_translate("SystemForm", "修改"))
@@ -180,7 +178,23 @@ class Ui_SystemForm(object):
         self.pushButton_20.setText(_translate("SystemForm", "删除"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("SystemForm", "部门管理"))
 
+
         self.initSlot()
+
+    def onPermissionItemClick(self):
+        self.permissionrow = self.tableWidget.currentRow()
+        self.cur_permission_val = self.permissions[self.permissionrow]
+        print (self.cur_permission_val)
+
+    def onUserItemClick(self):
+        self.userrow = self.tableWidget_2.currentRow()
+        self.cur_user_val = self.users[self.userrow]
+        print(self.cur_user_val)
+
+    def onPartItemClick(self):
+        self.partrow = self.tableWidget_5.currentRow()
+        self.cur_part_val = self.parts[self.partrow]
+        print(self.cur_part_val)
 
     def initSlot(self):
         self.pushButton_19.clicked.connect(self.queryPart)
@@ -195,12 +209,16 @@ class Ui_SystemForm(object):
         self.pushButton_5.clicked.connect(self.modifyUser)
         self.pushButton_7.clicked.connect(self.deleteUser)
 
+        self.pushButton_18.clicked.connect(self.addPart)
         self.pushButton_17.clicked.connect(self.modifyPart)
         self.pushButton_20.clicked.connect(self.deletePart)
 
-
+        self.tableWidget.itemClicked.connect(self.onPermissionItemClick)
+        self.tableWidget_2.itemClicked.connect(self.onUserItemClick)
+        self.tableWidget_5.itemClicked.connect(self.onPartItemClick)
 
     def queryPermission(self):
+        self.tableWidget.clear()
         self.tableWidget.setRowCount(10)
         cnx = mysql.connector.connect(user='root', password='qwer1234',
                               host='127.0.0.1', database='vzplmanager')
@@ -209,10 +227,17 @@ class Ui_SystemForm(object):
         self.cursor.execute(query)
 
         self.num = 0
+        self.permissions = []
         for (id, value, account) in self.cursor:
+            item = []
             self.tableWidget.setItem(self.num, 0, QtWidgets.QTableWidgetItem(str(id)))
             self.tableWidget.setItem(self.num, 1, QtWidgets.QTableWidgetItem(value))
             self.tableWidget.setItem(self.num, 2, QtWidgets.QTableWidgetItem(account))
+
+            item.append(str(id))
+            item.append(value)
+            item.append(account)
+            self.permissions.append(item)
             self.num += 1
 
         cnx.commit()
@@ -220,6 +245,7 @@ class Ui_SystemForm(object):
         cnx.close()
 
     def queryUser(self):
+        self.tableWidget_2.clear()
         self.tableWidget.setRowCount(10)
         cnx = mysql.connector.connect(user='root', password='qwer1234',
                               host='127.0.0.1', database='vzplmanager')
@@ -228,13 +254,20 @@ class Ui_SystemForm(object):
         self.cursor.execute(query)
 
         self.num = 0
+        self.users = []
         for (username, account, partment, create_time) in self.cursor:
-            print (username)
-            self.tableWidget_2.setItem(self.num, 1, QtWidgets.QTableWidgetItem(account))
-            self.tableWidget_2.setItem(self.num, 2, QtWidgets.QTableWidgetItem(str(create_time)))
-            self.tableWidget_2.setItem(self.num, 3, QtWidgets.QTableWidgetItem(username))
-            self.tableWidget_2.setItem(self.num, 4, QtWidgets.QTableWidgetItem(partment))
+            item = []
+            self.tableWidget_2.setItem(self.num, 0, QtWidgets.QTableWidgetItem(account))
+            self.tableWidget_2.setItem(self.num, 1, QtWidgets.QTableWidgetItem(str(create_time)))
+            self.tableWidget_2.setItem(self.num, 2, QtWidgets.QTableWidgetItem(username))
+            self.tableWidget_2.setItem(self.num, 3, QtWidgets.QTableWidgetItem(partment))
 
+            item.append(account)
+            item.append(str(create_time))
+            item.append(username)
+            item.append(partment)
+
+            self.users.append(item)
             self.num += 1
 
         cnx.commit()
@@ -243,7 +276,33 @@ class Ui_SystemForm(object):
 
 
     def queryPart(self):
-        pass
+        print ("querypart")
+        self.tableWidget_5.clear()
+        self.tableWidget.setRowCount(10)
+        cnx = mysql.connector.connect(user='root', password='qwer1234',
+                              host='127.0.0.1', database='vzplmanager')
+        self.cursor = cnx.cursor()
+        query = ("select partment, count, extra_count from part")
+        self.cursor.execute(query)
+
+        self.num = 0
+        self.parts = []
+        for (partment, count, extra_count) in self.cursor:
+            item = []
+            self.tableWidget_5.setItem(self.num, 0, QtWidgets.QTableWidgetItem(partment))
+            self.tableWidget_5.setItem(self.num, 1, QtWidgets.QTableWidgetItem(count))
+            self.tableWidget_5.setItem(self.num, 2, QtWidgets.QTableWidgetItem(extra_count))
+
+            item.append(partment)
+            item.append(count)
+            item.append(extra_count)
+
+            self.parts.append(item)
+            self.num += 1
+
+        cnx.commit()
+        self.cursor.close()
+        cnx.close()
 
     def addPermission(self):
         self.mainwindow = QtWidgets.QMainWindow()
@@ -257,21 +316,85 @@ class Ui_SystemForm(object):
         self.new_user.setupUi(self.mainwindow)
         self.mainwindow.show()
 
+    def addPart(self):
+        self.mainwindow = QtWidgets.QMainWindow()
+        self.new_part = Ui_AddPartMainWindow()
+        self.new_part.setupUi(self.mainwindow)
+        self.mainwindow.show()
+
+
     def modifyPermission(self):
-        pass
+        self.mainwindow = QtWidgets.QMainWindow()
+        self.modify_permission = Ui_ModifyPermissionMainWindow()
+        self.modify_permission.setupUi(self.mainwindow)
+        self.modify_permission.load(self.cur_permission_val)
+        self.mainwindow.show()
 
     def modifyPart(self):
-        pass
+        self.mainwindow = QtWidgets.QMainWindow()
+        self.modify_part = Ui_ModifyPartMainWindow()
+        self.modify_part.setupUi(self.mainwindow)
+        self.modify_part.load(self.cur_part_val)
+        self.mainwindow.show()
 
     def modifyUser(self):
-        pass
+        self.mainwindow = QtWidgets.QMainWindow()
+        self.modify_user = Ui_ModiyfUserMainWindow()
+        self.modify_user.setupUi(self.mainwindow)
+        self.modify_user.load(self.cur_user_val)
+        self.mainwindow.show()
 
     def deletePermission(self):
-        pass
+        reply = QMessageBox.question(self, 'Message', '确认删除?',
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            cnx = mysql.connector.connect(user='root', password='qwer1234',
+                                  host='127.0.0.1', database='vzplmanager')
+            cursor = cnx.cursor()
+            acount = self.cur_permission_val[2]
+            value = self.cur_permission_val[1]
+            update = "delete from  permission where account = '%s' AND value ='%s'" %(acount, value)
+
+            cursor.execute(update)
+
+            cnx.commit()
+            cursor.close()
+            cnx.close()
 
     def deletePart(self):
-        pass
+        reply = QMessageBox.question(self, 'Message', '确认删除?',
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            cnx = mysql.connector.connect(user='root', password='qwer1234',
+                                  host='127.0.0.1', database='vzplmanager')
+            cursor = cnx.cursor()
+            partment = self.cur_part_val[0]
+            delete = "delete from  part where partment = '%s' " %(partment)
+
+            cursor.execute(delete)
+
+            cnx.commit()
+            cursor.close()
+            cnx.close()
+
 
     def deleteUser(self):
-        pass
+        reply = QMessageBox.question(self, 'Message', '确认删除?',
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            cnx = mysql.connector.connect(user='root', password='qwer1234',
+                                  host='127.0.0.1', database='vzplmanager')
+            cursor = cnx.cursor()
+            username = self.cur_user_val[2]
+            delete = "delete from  user where username = '%s' " %(username)
+
+            cursor.execute(delete)
+
+            cnx.commit()
+            cursor.close()
+            cnx.close()
+
 

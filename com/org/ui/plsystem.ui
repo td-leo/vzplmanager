@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -110,11 +110,6 @@
      </column>
      <column>
       <property name="text">
-       <string>状态</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
        <string>权限编号</string>
       </property>
      </column>
@@ -145,17 +140,12 @@
      </property>
      <column>
       <property name="text">
-       <string>状态</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
        <string>账号</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>修改名称</string>
+       <string>修改时间</string>
       </property>
      </column>
      <column>

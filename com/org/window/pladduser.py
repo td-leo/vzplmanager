@@ -5,7 +5,8 @@
 # Created by: PyQt5 UI code generator 5.4.1
 #
 # WARNING! All changes made in this file will be lost!
-
+import datetime
+import mysql
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_AddUserMainWindow(object):
@@ -23,10 +24,6 @@ class Ui_AddUserMainWindow(object):
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(50, 140, 61, 21))
         self.label_3.setObjectName("label_3")
-        self.buttonBox = QtWidgets.QDialogButtonBox(self.centralwidget)
-        self.buttonBox.setGeometry(QtCore.QRect(130, 260, 156, 23))
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName("buttonBox")
         self.comboBox = QtWidgets.QComboBox(self.centralwidget)
         self.comboBox.setGeometry(QtCore.QRect(130, 90, 69, 22))
         self.comboBox.setObjectName("comboBox")
@@ -40,6 +37,12 @@ class Ui_AddUserMainWindow(object):
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
         self.textEdit.setGeometry(QtCore.QRect(130, 40, 104, 31))
         self.textEdit.setObjectName("textEdit")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(110, 250, 75, 23))
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_2.setGeometry(QtCore.QRect(200, 250, 75, 23))
+        self.pushButton_2.setObjectName("pushButton_2")
         AddUserMainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(AddUserMainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -58,4 +61,32 @@ class Ui_AddUserMainWindow(object):
         self.comboBox.setItemText(1, _translate("AddUserMainWindow", "接警处"))
         self.comboBox_2.setItemText(0, _translate("AddUserMainWindow", "管理员"))
         self.comboBox_2.setItemText(1, _translate("AddUserMainWindow", "超级管理员"))
+        self.pushButton.setText(_translate("AddUserMainWindow", "确定"))
+        self.pushButton_2.setText(_translate("AddUserMainWindow", "取消"))
+        self.initslot()
 
+
+    def initslot(self):
+        self.pushButton.clicked.connect(self.commit)
+        self.pushButton_2.clicked.connect(self.cancel)
+
+    def commit(self):
+        partment = self.comboBox.currentText()
+        account = self.comboBox_2.currentText()
+        username = self.textEdit.toPlainText()
+        cnx = mysql.connector.connect(user='root', password='qwer1234',
+                              host='127.0.0.1', database='vzplmanager')
+        self.cursor = cnx.cursor()
+
+        insert = ("INSERT INTO user "
+                        "(username, account, partment, create_time)"
+                        "VALUES ( %s, %s, %s, %s)")
+        vl = (username, account, partment ,str(datetime.datetime.now()))
+        self.cursor.execute(insert, vl)
+
+        cnx.commit()
+        self.cursor.close()
+        cnx.close()
+
+    def cancel(self):
+        pass

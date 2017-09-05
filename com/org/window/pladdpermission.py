@@ -81,6 +81,7 @@ class Ui_AddPermissionMainWindow(object):
         self.pushButton.setText(_translate("AddPermissionMainWindow", "确定"))
         self.pushButton_2.setText(_translate("AddPermissionMainWindow", "取消"))
         self.label.setText(_translate("AddPermissionMainWindow", "用户："))
+        self.initslot()
 
 
     def initslot(self):
@@ -96,10 +97,11 @@ class Ui_AddPermissionMainWindow(object):
         insert = ("INSERT INTO permission "
                         "(value, account)"
                         "VALUES ( %s, %s)")
+
         vl = (permisison, user)
+        print(vl)
         self.cursor.execute(insert, vl)
 
         cnx.commit()
         self.cursor.close()
         cnx.close()
-        pass

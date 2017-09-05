@@ -11,6 +11,7 @@ from PyQt5.QtGui import QIcon
 
 from com.org.window.plmanagertab import Ui_PlManagerForm
 from com.org.window.plrecord import Ui_PlRecordForm
+from com.org.window.plrecorder import Ui_RecorderForm
 from com.org.window.plsystem import Ui_SystemForm
 
 
@@ -66,6 +67,7 @@ class Ui_MainWindow(object):
         self.actionquery.triggered.connect(self.showQuery)
         self.actionsystem.triggered.connect(self.showSystem)
 
+
         self.toolBar.setMovable(False)
         self.toolBar.setObjectName("toolBar")
         MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
@@ -75,6 +77,7 @@ class Ui_MainWindow(object):
         self.plmanager = PlManagerForm()
         self.plrecord = PlRecordForm()
         self.plsystem = PlSystemForm()
+        self.recorder = RecorderForm()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -84,11 +87,15 @@ class Ui_MainWindow(object):
     def clearWidget(self):
         self.mainlayout.removeWidget(self.plmanager)
         self.plmanager.hide()
+
         self.mainlayout.removeWidget(self.plrecord)
         self.plrecord.hide()
 
         self.mainlayout.removeWidget(self.plsystem)
         self.plsystem.hide()
+
+        self.mainlayout.removeWidget(self.recorder)
+        self.recorder.hide()
 
         pass
 
@@ -109,16 +116,26 @@ class Ui_MainWindow(object):
         pass
 
     def showQuery(self):
-        pass
+        self.clearWidget()
+        self.mainlayout.addWidget(self.recorder)
+        self.recorder.show()
+
 
     def showSystem(self):
         self.clearWidget()
         self.mainlayout.addWidget(self.plsystem)
         self.plsystem.show()
 
+
+
 class PlRecordForm(QtWidgets.QWidget, Ui_PlRecordForm):
     def __init__(self):
         super(PlRecordForm, self).__init__()
+        self.setupUi(self)
+
+class RecorderForm(QtWidgets.QWidget, Ui_RecorderForm):
+    def __init__(self):
+        super(RecorderForm, self).__init__()
         self.setupUi(self)
 
 class PlManagerForm(QtWidgets.QWidget, Ui_PlManagerForm):
